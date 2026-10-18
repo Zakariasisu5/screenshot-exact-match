@@ -29,7 +29,7 @@ const csrfMiddleware = createCsrfMiddleware({
 // call so requireSupabaseAuth can verify it server-side.
 const functionAuthMiddleware = createMiddleware({ type: "function" }).client(
   async ({ next }) => {
-    const headers = await attachSupabaseAuth();
+    const headers = (await attachSupabaseAuth()) ?? {};
     return next({ headers });
   },
 );
