@@ -1,6 +1,7 @@
 import { createStart, createCsrfMiddleware, createMiddleware } from "@tanstack/react-start";
 
 import { renderErrorPage } from "./lib/error-page";
+import { attachSupabaseAuth } from "@/integrations/supabase/auth-attacher";
 
 const errorMiddleware = createMiddleware().server(async ({ next }) => {
   try {
@@ -24,6 +25,16 @@ const csrfMiddleware = createCsrfMiddleware({
   filter: (ctx) => ctx.handlerType === "serverFn",
 });
 
+// Attaches the signed-in staff member's bearer token to every server-function
+// call so requireSupabaseAuth can verify it server-side.
+const functionAuthMiddleware = createMiddleware({ type: "function" }).client(
+  async ({ next }) => {
+    const headers = await attachSupabaseAuth();
+    return next({ headers });
+  },
+);
+
 export const startInstance = createStart(() => ({
   requestMiddleware: [errorMiddleware, csrfMiddleware],
+  functionMiddleware: [functionAuthMiddleware],
 }));
