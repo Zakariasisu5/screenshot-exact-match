@@ -1,24 +1,10 @@
-import { createFileRoute } from "@tanstack/react-router";
-
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
-export const Route = createFileRoute("/")({
-  component: Index,
-});
-
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
-function Index() {
-  return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
-  );
-}
+import { createFileRoute, Link } from '@tanstack/react-router'
+import { ArrowUpRight, ArrowRight, Plane, Ship, Truck, ShieldCheck, ScanLine, Headphones, Globe2, PackageCheck } from 'lucide-react'
+import { PublicShell } from '@/components/remitship/public-shell'
+import { TrackingForm } from '@/components/remitship/tracking-form'
+import { Button } from '@/components/ui/button'
+import { pageHead } from '@/lib/remitship'
+import freight from '@/assets/remitship-freight.jpg'
+export const Route=createFileRoute('/')({head:()=>pageHead('RemitShip — International Shipping','International shipping with personal care. Explore RemitShip services and track your shipment across borders.'),component:Home})
+const services=[{icon:Plane,n:'01',title:'Air freight',text:'For shipments where time matters. International air transport for your parcels and cargo.',tag:'Speed without compromise'},{icon:Ship,n:'02',title:'Sea freight',text:'A considered choice for larger cargo. Ocean shipping for your business and personal goods.',tag:'More room. More possibilities.'},{icon:Truck,n:'03',title:'Express & courier',text:'From collection to the final handover. Connected courier services for everyday deliveries.',tag:'Every parcel matters'}]
+function Home(){return <PublicShell><section className="home-hero"><img src={freight} alt="Cargo aircraft being loaded at an international freight terminal" width={1920} height={1024} className="hero-image"/><div className="hero-shade"/><div className="page-width hero-content"><div className="eyebrow light"><span/> YOUR WORLD. DELIVERED.</div><h1>RemitShip<span className="text-primary">.</span></h1><h2>Beyond borders.<br/>Closer to you.</h2><p>From your doorstep to their destination.<br/>International shipping with care at every step.</p><Button variant="outline" asChild className="hero-button"><Link to="/services">Explore our services <ArrowUpRight/></Link></Button></div><div className="hero-caption"><span className="caption-line"/> CONNECTING PEOPLE. MOVING POSSIBILITIES.</div></section><section className="tracking-band"><div className="page-width tracking-layout"><div><div className="eyebrow">EVERY STEP, IN SIGHT</div><h2>Where’s your shipment?</h2></div><div className="tracking-search"><TrackingForm/><p>Your shipment’s journey, from collection to delivery.</p></div></div></section><div className="assurance-strip"><div className="page-width assurance-inner"><span><ShieldCheck/>Handled with care</span><span><ScanLine/>Verified shipment updates</span><span><Globe2/>International connections</span><span><Headphones/>A team you can reach</span></div></div><section className="page-width services-section"><div className="section-heading"><div><div className="eyebrow">A SERVICE FOR EVERY JOURNEY</div><h2>Your cargo. Our commitment.</h2></div><Link to="/services" className="text-link">All shipping services <ArrowUpRight size={18}/></Link></div><div className="service-grid">{services.map(s=><Link to="/services" key={s.title} className="service-item"><div className="service-top"><s.icon size={32} strokeWidth={1.4}/><span>{s.n}</span></div><h3>{s.title}</h3><p>{s.text}</p><div className="service-bottom"><span>{s.tag}</span><ArrowUpRight size={20}/></div></Link>)}</div></section><section className="why-band"><div className="page-width why-grid"><div><div className="eyebrow">MORE THAN SHIPPING</div><h2>Behind every parcel,<br/>there’s a person.</h2><p>A family waiting. A business growing. A promise being kept. We treat every shipment like it matters. Because it does.</p><Button variant="outline" asChild><Link to="/about">Get to know RemitShip <ArrowUpRight/></Link></Button></div><div className="why-points"><div><PackageCheck/><section><h3>Care from start to finish</h3><p>Thoughtful handling through each part of the journey.</p></section></div><div><ScanLine/><section><h3>Clarity, not guesswork</h3><p>Recorded checkpoints and clearly identified delivery estimates.</p></section></div><div><Globe2/><section><h3>Local care. Global outlook.</h3><p>Connecting international routes with the people who matter.</p></section></div></div></div></section><section className="page-width contact-banner"><div><div className="eyebrow">YOUR NEXT CHAPTER</div><h2>Ready to send something forward?</h2></div><Button size="lg" asChild><Link to="/contact">Let’s talk shipping <ArrowRight/></Link></Button></section></PublicShell>}
