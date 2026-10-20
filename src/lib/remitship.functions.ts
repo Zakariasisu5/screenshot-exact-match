@@ -99,3 +99,6 @@ export const saveNetwork=createServerFn({method:'POST'}).middleware([requireSupa
  if(data.kind==='facilities'){const input={name:z.string().trim().min(1).parse(v['name']),code:z.string().trim().min(1).parse(v['code']),city:z.string().trim().min(1).parse(v['city']),country:z.string().trim().min(1).parse(v['country'])};const result=await(data.id?context.supabase.from('facilities').update(input).eq('id',data.id):context.supabase.from('facilities').insert(input)).select('id').single();error=result.error;recordId=result.data?.id}
  if(error)throw new Error(error.message);await context.supabase.from('audit_logs').insert({table_name:data.kind,record_id:recordId??null,action:data.id?'update':'create',changed_by:context.userId,reason:data.reason,details:data.values});return {ok:true}
 })
+export const bootstrapFirstAdmin=createServerFn({method:'POST'}).middleware([requireSupabaseAuth]).handler(async({context})=>{
+ const {error}=await context.supabase.rpc('bootstrap_first_super_admin',{p_user_id:context.userId});if(error)throw new Error(error.message);return {ok:true}
+})

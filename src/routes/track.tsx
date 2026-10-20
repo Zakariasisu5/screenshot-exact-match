@@ -206,15 +206,6 @@ function Tracking() {
                   )}
                 </section>
               </div>
-              {value('service_type') && (
-                <div>
-                  <Package />
-                  <section>
-                    <span>Service type</span>
-                    <strong>{label(value('service_type'))}</strong>
-                  </section>
-                </div>
-              )}
               <div>
                 <ShieldCheck />
                 <section>
@@ -231,6 +222,36 @@ function Tracking() {
                 </section>
               </div>
             </div>
+
+            {/* Package Specifications */}
+            {(value('service_type') || shipment?.pieces) && (
+              <div className="package-specs">
+                <h3>Package specifications</h3>
+                <div className="specs-grid">
+                  {value('service_type') && (
+                    <div className="spec-item">
+                      <Package size={20} />
+                      <section>
+                        <span>Service type</span>
+                        <strong>{label(value('service_type'))}</strong>
+                      </section>
+                    </div>
+                  )}
+                  {shipment?.pieces && (
+                    <div className="spec-item">
+                      <Package size={20} />
+                      <section>
+                        <span>Number of pieces</span>
+                        <strong>{shipment.pieces}</strong>
+                      </section>
+                    </div>
+                  )}
+                </div>
+                <p className="privacy-note">
+                  Sender and recipient contact details, street addresses, and driver information are private and not displayed on public tracking.
+                </p>
+              </div>
+            )}
 
             {/* Progress Tracker */}
             {status !== 'returned_to_sender' && (
