@@ -8,6 +8,7 @@ export const eventSchema = z.object({shipment_id:z.string().uuid(),status:z.enum
 export function mayManage(roleValues: string[]) { return roleValues.some(r => r === 'super_admin' || r === 'operations_manager') }
 export function mayRecord(roleValues: string[], status: string, kind: string) { return mayManage(roleValues) || (roleValues.includes('courier') && ['out_for_delivery','delivery_attempted','delivered'].includes(status) && kind === 'verified') }
 export const publicShipmentFields = ['tracking_number','status','service_type','origin_city','origin_country','destination_city','destination_country','estimated_delivery_at','customs_status','last_event_at','created_at','is_demo'] as const
-export function publicShipment(row: Record<string, unknown>) { return Object.fromEntries(publicShipmentFields.map(k => [k,row[k]])) }
+type PublicField = typeof publicShipmentFields[number]
+export function publicShipment<T extends Partial<Record<PublicField, string | number | boolean | null>>>(row: T & Record<string, unknown>) { return Object.fromEntries(publicShipmentFields.map(k => [k,row[k] ?? null])) as {[K in PublicField]: NonNullable<T[K]> | null} }
 export const dateLabel = (value: string | null | undefined) => value ? new Intl.DateTimeFormat(undefined,{dateStyle:'medium',timeStyle:'short',timeZoneName:undefined}).format(new Date(value)) : 'Not available'
 export const pageHead = (title: string, description: string) => ({meta:[{title:`${title} | RemitShip`},{name:'description',content:description},{property:'og:title',content:`${title} | RemitShip`},{property:'og:description',content:description},{property:'og:type',content:'website'},{name:'twitter:card',content:'summary_large_image'}]})
