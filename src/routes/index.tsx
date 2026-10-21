@@ -105,49 +105,16 @@ function Home() {
       </section>
 
       {/* Service Categories - DHL Structure */}
-      <section className="page-width service-categories" style={{
-        padding: '5rem 2rem',
-        display: 'grid',
-        gridTemplateColumns: '1fr',
-        gap: '3rem',
-        maxWidth: '1400px',
-        margin: '0 auto'
-      }}>
+      <section className="page-width service-categories">
         {/* Document & Parcel Shipping */}
-        <div className="service-category-card" style={{
-          background: 'var(--card)',
-          border: '1px solid var(--border)',
-          borderRadius: '12px',
-          padding: '3rem',
-          transition: 'box-shadow 0.3s'
-        }}>
-          <div className="category-header" style={{display: 'flex', alignItems: 'flex-start', gap: '1.5rem', marginBottom: '2rem'}}>
-            <div className="category-icon" style={{
-              width: '80px',
-              height: '80px',
-              borderRadius: '12px',
-              background: 'linear-gradient(135deg, #10284B, #1a3a5f)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              color: 'white',
-              flexShrink: 0
-            }}>
+        <div className="service-category-card">
+          <div className="category-header">
+            <div className="category-icon">
               <Package size={40} strokeWidth={1.5} />
             </div>
-            <div style={{flex: 1}}>
-              <h2 style={{fontSize: '2rem', fontWeight: 700, marginBottom: '0.5rem'}}>Document and Parcel Shipping</h2>
-              <span className="category-badge" style={{
-                display: 'inline-block',
-                padding: '0.375rem 1rem',
-                background: 'var(--muted)',
-                color: 'var(--muted-foreground)',
-                borderRadius: '6px',
-                fontSize: '0.875rem',
-                fontWeight: 600,
-                textTransform: 'uppercase',
-                letterSpacing: '0.05em'
-              }}>For All Shippers</span>
+            <div>
+              <h2>Document and Parcel Shipping</h2>
+              <span className="category-badge">For All Shippers</span>
             </div>
           </div>
           

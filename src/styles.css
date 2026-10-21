@@ -3722,3 +3722,136 @@ html {
     grid-template-columns: 1fr !important;
   }
 }
+
+/* ============================================================
+   Global Mobile Responsiveness & Accessibility Hardening
+   ============================================================ */
+
+/* Fluid page padding token */
+:root {
+  --page-padding: clamp(1rem, 4vw, 3rem);
+}
+
+/* Media never exceeds its container */
+img,
+video,
+svg {
+  max-width: 100%;
+}
+
+/* Long identifiers (tracking numbers, emails, references) wrap safely */
+.tracking-result-header h2,
+.shipment-facts strong,
+.spec-item strong,
+.delivery-detail strong,
+.timeline h3,
+.timeline p,
+.staff-chip section,
+.admin-title h1,
+.detail-grid strong,
+.facts-list strong {
+  overflow-wrap: anywhere;
+}
+
+/* Grid/flex children may shrink below content size */
+.auth-form-panel,
+.category-header > div,
+.service-option > div,
+.journey-summary > div,
+.hero-content-dhl,
+.admin-main,
+.admin-content {
+  min-width: 0;
+}
+
+/* Fluid hero typography and height (svh accounts for mobile browser chrome) */
+.dhl-hero {
+  min-height: clamp(28rem, 75svh, 42rem);
+  padding-block: clamp(2rem, 5vw, 4rem);
+}
+
+.dhl-hero .hero-content-dhl h1 {
+  font-size: clamp(2rem, 6vw, 3rem);
+  line-height: 1.1;
+  overflow-wrap: break-word;
+}
+
+.hero-subtitle {
+  font-size: clamp(1rem, 2.5vw, 1.25rem);
+}
+
+.page-title h1 {
+  font-size: clamp(1.75rem, 5vw, 2.5rem);
+  overflow-wrap: break-word;
+}
+
+/* Prevent iOS auto-zoom: form controls need >= 16px text on small screens */
+@media (max-width: 640px) {
+  input,
+  select,
+  textarea {
+    font-size: 16px;
+  }
+}
+
+/* Comfortable touch targets on coarse-pointer (touch) devices */
+@media (pointer: coarse) {
+  .mobile-nav a,
+  .desktop-nav a,
+  .admin-sidebar nav a,
+  .pagination button,
+  .timeline .event-tag {
+    min-height: 44px;
+  }
+
+  button,
+  [role="button"],
+  a.inline-flex {
+    min-height: 44px;
+  }
+}
+
+/* Safe-area padding for notched devices */
+.site-header,
+.site-footer,
+.admin-header {
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+}
+
+.site-footer,
+.mobile-nav {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* Parallax image sections: clip scaled images and prevent grid blowout */
+.scroll-image-section {
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.scroll-image-section > div {
+  min-width: 0;
+}
+
+/* Long button labels wrap instead of forcing cards wider than the screen */
+.category-cta {
+  white-space: normal;
+  height: auto;
+  min-height: 44px;
+  line-height: 1.3;
+  text-align: center;
+  padding-block: 0.625rem;
+}
+
+/* Respect reduced-motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
