@@ -5,6 +5,7 @@ import { supabase } from '@/integrations/supabase/client'
 import { Brand, brandIcon } from '@/components/remitship/public-shell'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
+import { PasswordInput } from '@/components/remitship/password-input'
 import { pageHead } from '@/lib/remitship'
 
 export const Route = createFileRoute('/auth')({
@@ -194,10 +195,9 @@ function Auth() {
             {mode !== 'reset' && (
               <div className="form-group" style={{display: 'flex', flexDirection: 'column' as const, gap: '0.5rem'}}>
                 <label htmlFor="password" style={{fontSize: '0.9375rem', fontWeight: 600, color: 'var(--foreground)'}}>Password</label>
-                <Input 
+                <PasswordInput 
                   id="password"
                   name="password" 
-                  type="password" 
                   autoComplete={mode === 'signup' ? 'new-password' : 'current-password'} 
                   minLength={8}
                   placeholder="••••••••"

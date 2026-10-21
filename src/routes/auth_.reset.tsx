@@ -97,10 +97,9 @@ function Reset() {
             <form onSubmit={handleSubmit} className="auth-form">
               <div className="form-group">
                 <label htmlFor="password">New Password</label>
-                <Input 
+                <PasswordInput 
                   id="password"
                   name="password" 
-                  type="password" 
                   autoComplete="new-password" 
                   minLength={8}
                   placeholder="••••••••"
@@ -113,10 +112,9 @@ function Reset() {
 
               <div className="form-group">
                 <label htmlFor="confirmPassword">Confirm Password</label>
-                <Input 
+                <PasswordInput 
                   id="confirmPassword"
                   name="confirmPassword" 
-                  type="password" 
                   autoComplete="new-password" 
                   minLength={8}
                   placeholder="••••••••"
