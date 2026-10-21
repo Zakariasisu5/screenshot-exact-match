@@ -4,7 +4,7 @@ import { ArrowLeft, CheckCircle, Lock } from 'lucide-react'
 import { supabase } from '@/integrations/supabase/client'
 import { Brand, brandIcon } from '@/components/remitship/public-shell'
 import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
+import { PasswordInput } from '@/components/remitship/password-input'
 import { pageHead } from '@/lib/remitship'
 
 export const Route = createFileRoute('/auth_/reset')({

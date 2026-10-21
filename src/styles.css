@@ -3890,3 +3890,328 @@ svg {
 .action-form .form-actions { margin-top: 0.25rem; justify-content: flex-end; }
 @media (max-width: 480px) { .action-form .form-actions button { width: 100%; } }
 .detail-grid { gap: clamp(1rem, 2.5vw, 1.5rem); }
+
+/* Track Page Responsive Improvements */
+@media (max-width: 768px) {
+  .tracking-form {
+    max-width: 100%;
+  }
+  
+  .tracking-input-wrap {
+    flex-direction: column;
+    align-items: stretch !important;
+    gap: 0.75rem;
+  }
+  
+  .tracking-input-wrap input {
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+  
+  .tracking-input-wrap button {
+    width: 100% !important;
+    justify-content: center;
+  }
+  
+  .tracking-result-header {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 1rem;
+  }
+  
+  .shipment-facts {
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+  }
+  
+  .package-specs .specs-grid {
+    grid-template-columns: 1fr !important;
+  }
+  
+  .demo-notice {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.75rem !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .journey-line {
+    grid-column: 1 / -1;
+    padding: 0.5rem 0;
+    width: 100%;
+  }
+  
+  .journey-line span {
+    display: block;
+  }
+  
+  .journey-summary {
+    gap: 0;
+  }
+  
+  .page-title h1 {
+    font-size: 2rem !important;
+  }
+  
+  .page-title p {
+    font-size: 1rem !important;
+  }
+  
+  .timeline li {
+    padding-left: 2.5rem !important;
+  }
+  
+  .timeline-dot {
+    left: 0 !important;
+  }
+}
+
+/* Arrow icon alignment fix */
+.tracking-input-wrap button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.tracking-input-wrap button svg {
+  flex-shrink: 0;
+}
+
+/* Journey line arrow fix */
+.journey-line {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0 1rem;
+}
+
+.journey-line span {
+  flex: 1;
+  height: 2px;
+  background: var(--border);
+  min-width: 40px;
+}
+
+.journey-line svg {
+  flex-shrink: 0;
+  color: var(--brand-navy);
+}
+
+/* Improve button icon spacing across site */
+button svg,
+a svg {
+  flex-shrink: 0;
+}
+
+/* Status badge responsive */
+@media (max-width: 480px) {
+  .status-badge {
+    font-size: 0.875rem !important;
+    padding: 0.5rem 1rem !important;
+  }
+}
+
+/* Admin Forms - Improved Spacing and Layout */
+.admin-form fieldset {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--card);
+}
+
+.admin-form legend {
+  font-size: 1.125rem;
+  font-weight: 700;
+  padding: 0 0.5rem;
+  color: var(--foreground);
+}
+
+.admin-form .form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.admin-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--foreground);
+}
+
+.admin-form input,
+.admin-form select,
+.admin-form textarea {
+  margin-top: 0.25rem;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--background);
+  color: var(--foreground);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.admin-form input:focus,
+.admin-form select:focus,
+.admin-form textarea:focus {
+  outline: none;
+  border-color: var(--brand-navy);
+  box-shadow: 0 0 0 3px rgba(16, 40, 75, 0.1);
+}
+
+.admin-form textarea {
+  resize: vertical;
+  min-height: 100px;
+  font-family: inherit;
+  line-height: 1.5;
+}
+
+.admin-form select {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23666' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  padding-right: 2.5rem;
+}
+
+.admin-form .checkbox-label {
+  flex-direction: row;
+  align-items: center;
+  gap: 0.75rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.admin-form .checkbox-label input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  cursor: pointer;
+}
+
+.admin-form .form-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+}
+
+/* Action Form Component */
+.action-form {
+  padding: 2rem;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+}
+
+.action-form h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: var(--foreground);
+}
+
+.action-form .panel-note {
+  font-size: 0.9375rem;
+  color: var(--muted-foreground);
+  margin-bottom: 1.5rem;
+  line-height: 1.5;
+}
+
+.action-form .form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.action-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--foreground);
+}
+
+.action-form input,
+.action-form select,
+.action-form textarea {
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--background);
+  color: var(--foreground);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.action-form input:focus,
+.action-form select:focus,
+.action-form textarea:focus {
+  outline: none;
+  border-color: var(--brand-navy);
+  box-shadow: 0 0 0 3px rgba(16, 40, 75, 0.1);
+}
+
+.action-form .form-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  margin-top: 1.5rem;
+}
+
+/* Responsive Admin Forms */
+@media (max-width: 768px) {
+  .admin-form .form-grid,
+  .action-form .form-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .admin-form fieldset {
+    padding: 1rem;
+  }
+  
+  .admin-form .form-actions,
+  .action-form .form-actions {
+    flex-direction: column;
+  }
+  
+  .admin-form .form-actions button,
+  .action-form .form-actions button {
+    width: 100%;
+  }
+}
+
+/* Form Error and Success States */
+.form-error {
+  padding: 1rem;
+  background: rgba(229, 57, 53, 0.1);
+  border: 1px solid rgba(229, 57, 53, 0.3);
+  border-radius: var(--radius);
+  color: var(--destructive);
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  margin: 1rem 0;
+}
+
+.notice {
+  padding: 1rem;
+  background: rgba(76, 175, 80, 0.1);
+  border: 1px solid rgba(76, 175, 80, 0.3);
+  border-radius: var(--radius);
+  color: #2e7d32;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  margin: 1rem 0;
+}

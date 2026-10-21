@@ -8,7 +8,74 @@ import {Button} from '@/components/ui/button'
 import {Input} from '@/components/ui/input'
 import {createShipment} from '@/lib/remitship.functions'
 import {pageHead,mayManage,shipmentSchema} from '@/lib/remitship'
+
+const fieldsetStyle = {
+  marginBottom: '2rem',
+  padding: '1.5rem',
+  border: '1px solid var(--border)',
+  borderRadius: 'var(--radius)',
+  background: 'var(--card)'
+}
+
+const legendStyle = {
+  fontSize: '1.125rem',
+  fontWeight: 700,
+  padding: '0 0.5rem',
+  color: 'var(--foreground)'
+}
+
+const formGridStyle = {
+  display: 'grid',
+  gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+  gap: '1.5rem',
+  marginTop: '1rem'
+}
+
+const labelStyle = {
+  display: 'flex',
+  flexDirection: 'column' as const,
+  gap: '0.5rem',
+  fontSize: '0.9375rem',
+  fontWeight: 600,
+  color: 'var(--foreground)'
+}
+
+const inputStyle = {
+  padding: '0.75rem 1rem',
+  fontSize: '1rem',
+  borderRadius: 'var(--radius)',
+  border: '1px solid var(--border)'
+}
+
+const textareaStyle = {
+  ...inputStyle,
+  minHeight: '100px',
+  fontFamily: 'inherit',
+  lineHeight: 1.5,
+  resize: 'vertical' as const
+}
+
+const selectStyle = {
+  ...inputStyle,
+  cursor: 'pointer',
+  appearance: 'none' as const,
+  backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23666' d='M6 9L1 4h10z'/%3E%3C/svg%3E\")",
+  backgroundRepeat: 'no-repeat',
+  backgroundPosition: 'right 1rem center',
+  paddingRight: '2.5rem'
+}
+
+const formActionsStyle = {
+  display: 'flex',
+  gap: '1rem',
+  justifyContent: 'flex-end',
+  marginTop: '2rem',
+  paddingTop: '2rem',
+  borderTop: '1px solid var(--border)'
+}
+
 export const Route=createFileRoute('/_authenticated/admin/shipments_/new')({head:()=>pageHead('Create Shipment','Register a RemitShip shipment and generate its permanent tracking number.'),component:NewShipment})
+
 function NewShipment(){const staff=useStaff();const create=useServerFn(createShipment);const client=useQueryClient();const navigate=useNavigate();const [error,setError]=useState('');const [busy,setBusy]=useState(false)
  if(!mayManage(staff?.roles??[]))return <div className="empty-state"><h1>Manager access required</h1></div>
- return <><Link to="/admin/shipments" className="text-link"><ArrowLeft size={16}/>All shipments</Link><AdminTitle title="Create shipment" description="Register the parcel. Its tracking number stays with it for the entire journey."/><form className="admin-form" onSubmit={async e=>{e.preventDefault();setBusy(true);setError('');const fd=new FormData(e.currentTarget);const input={...Object.fromEntries(fd),pieces:Number(fd.get('pieces')),weight_kg:Number(fd.get('weight_kg')),is_demo:fd.get('is_demo')==='on'};const valid=shipmentSchema.safeParse(input);if(!valid.success){setError(valid.error.issues.map(i=>`${i.path.join(' ')}: ${i.message}`).join('; '));setBusy(false);return}try{const result=await create({data:valid.data});await client.invalidateQueries({queryKey:['shipments']});navigate({to:'/admin/shipments/$id',params:{id:result.id}})}catch(err){setError(err instanceof Error?err.message:'Unable to save shipment.')}finally{setBusy(false)}}}><fieldset><legend>Sender & recipient</legend><div className="form-grid">{[{name:'sender_name',text:'Sender name',required:true},{name:'recipient_name',text:'Recipient name',required:true},{name:'sender_email',text:'Sender email',type:'email'},{name:'recipient_email',text:'Recipient email',type:'email'},{name:'sender_phone',text:'Sender phone',type:'tel'},{name:'recipient_phone',text:'Recipient phone',type:'tel'}].map(f=><label key={f.name}>{f.text}<Input name={f.name} type={f.type??'text'} required={f.required}/></label>)}</div></fieldset><fieldset><legend>Shipment journey</legend><div className="form-grid">{[{name:'origin_city',text:'Origin city'},{name:'origin_country',text:'Origin country'},{name:'destination_city',text:'Destination city'},{name:'destination_country',text:'Destination country'}].map(f=><label key={f.name}>{f.text}<Input name={f.name} required/></label>)}</div></fieldset><fieldset><legend>Parcel details</legend><div className="form-grid"><label>Service type<select name="service_type"><option value="standard">Standard</option><option value="express">Express</option><option value="air_freight">Air freight</option><option value="sea_freight">Sea freight</option></select></label><label>Number of pieces<Input name="pieces" type="number" min="1" step="1" defaultValue="1" required/></label><label>Weight (kg)<Input name="weight_kg" type="number" min="0.01" step="0.01" required/></label><label>Parcel description<Input name="parcel_description"/></label></div></fieldset><fieldset><legend>Registration record</legend><label>Internal notes<textarea name="notes_internal" rows={3}/></label><label>Reason for registration<Input name="reason" minLength={3} required/></label><label className="checkbox-label"><input type="checkbox" name="is_demo"/>Development demo shipment (not a real delivery)</label></fieldset>{error&&<p role="alert" className="form-error">{error}</p>}<div className="form-actions"><Button asChild variant="outline"><Link to="/admin/shipments">Cancel</Link></Button><Button disabled={busy} type="submit"><Plus/>{busy?'Registering…':'Register shipment'}</Button></div></form></>}
+ return <><Link to="/admin/shipments" className="text-link" style={{marginBottom: '1rem', display: 'inline-flex', alignItems: 'center', gap: '0.5rem'}}><ArrowLeft size={16}/>All shipments</Link><AdminTitle title="Create shipment" description="Register the parcel. Its tracking number stays with it for the entire journey."/><form className="admin-form" onSubmit={async e=>{e.preventDefault();setBusy(true);setError('');const fd=new FormData(e.currentTarget);const input={...Object.fromEntries(fd),pieces:Number(fd.get('pieces')),weight_kg:Number(fd.get('weight_kg')),is_demo:fd.get('is_demo')==='on'};const valid=shipmentSchema.safeParse(input);if(!valid.success){setError(valid.error.issues.map(i=>`${i.path.join(' ')}: ${i.message}`).join('; '));setBusy(false);return}try{const result=await create({data:valid.data});await client.invalidateQueries({queryKey:['shipments']});navigate({to:'/admin/shipments/$id',params:{id:result.id}})}catch(err){setError(err instanceof Error?err.message:'Unable to save shipment.')}finally{setBusy(false)}}}><fieldset style={fieldsetStyle}><legend style={legendStyle}>Sender & recipient</legend><div style={formGridStyle}>{[{name:'sender_name',text:'Sender name',required:true},{name:'recipient_name',text:'Recipient name',required:true},{name:'sender_email',text:'Sender email',type:'email'},{name:'recipient_email',text:'Recipient email',type:'email'},{name:'sender_phone',text:'Sender phone',type:'tel'},{name:'recipient_phone',text:'Recipient phone',type:'tel'}].map(f=><label key={f.name} style={labelStyle}>{f.text}<Input name={f.name} type={f.type??'text'} required={f.required} style={inputStyle}/></label>)}</div></fieldset><fieldset style={fieldsetStyle}><legend style={legendStyle}>Shipment journey</legend><div style={formGridStyle}>{[{name:'origin_city',text:'Origin city'},{name:'origin_country',text:'Origin country'},{name:'destination_city',text:'Destination city'},{name:'destination_country',text:'Destination country'}].map(f=><label key={f.name} style={labelStyle}>{f.text}<Input name={f.name} required style={inputStyle}/></label>)}</div></fieldset><fieldset style={fieldsetStyle}><legend style={legendStyle}>Parcel details</legend><div style={formGridStyle}><label style={labelStyle}>Service type<select name="service_type" style={selectStyle}><option value="standard">Standard</option><option value="express">Express</option><option value="air_freight">Air freight</option><option value="sea_freight">Sea freight</option></select></label><label style={labelStyle}>Number of pieces<Input name="pieces" type="number" min="1" step="1" defaultValue="1" required style={inputStyle}/></label><label style={labelStyle}>Weight (kg)<Input name="weight_kg" type="number" min="0.01" step="0.01" required style={inputStyle}/></label><label style={labelStyle}>Parcel description<Input name="parcel_description" style={inputStyle}/></label></div></fieldset><fieldset style={fieldsetStyle}><legend style={legendStyle}>Registration record</legend><label style={labelStyle}>Internal notes<textarea name="notes_internal" rows={3} style={textareaStyle}/></label><label style={labelStyle}>Reason for registration<Input name="reason" minLength={3} required style={inputStyle}/></label><label style={{...labelStyle, flexDirection: 'row', alignItems: 'center', gap: '0.75rem', cursor: 'pointer'}}><input type="checkbox" name="is_demo" style={{width: '20px', height: '20px', margin: 0, cursor: 'pointer'}}/>Development demo shipment (not a real delivery)</label></fieldset>{error&&<p role="alert" style={{padding: '1rem', background: 'rgba(229, 57, 53, 0.1)', border: '1px solid rgba(229, 57, 53, 0.3)', borderRadius: 'var(--radius)', color: 'var(--destructive)', fontSize: '0.9375rem', margin: '1rem 0'}}>{error}</p>}<div style={formActionsStyle}><Button asChild variant="outline"><Link to="/admin/shipments">Cancel</Link></Button><Button disabled={busy} type="submit"><Plus/>{busy?'Registering…':'Register shipment'}</Button></div></form></>}
