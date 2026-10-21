@@ -3824,6 +3824,16 @@ svg {
   padding-bottom: env(safe-area-inset-bottom);
 }
 
+/* Parallax image sections: clip scaled images and prevent grid blowout */
+.scroll-image-section {
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.scroll-image-section > div {
+  min-width: 0;
+}
+
 /* Long button labels wrap instead of forcing cards wider than the screen */
 .category-cta {
   white-space: normal;
