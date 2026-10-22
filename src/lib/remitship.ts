@@ -11,6 +11,8 @@ export const publicShipmentFields = ['tracking_number','status','service_type','
 type PublicField = typeof publicShipmentFields[number]
 export function publicShipment<T extends Partial<Record<PublicField, string | number | boolean | null>>>(row: T & Record<string, unknown>) { return Object.fromEntries(publicShipmentFields.map(k => [k,row[k] ?? null])) as {[K in PublicField]: NonNullable<T[K]> | null} }
 export const dateLabel = (value: string | null | undefined) => value ? new Intl.DateTimeFormat(undefined,{dateStyle:'medium',timeStyle:'short',timeZoneName:undefined}).format(new Date(value)) : 'Not available'
+export const SITE_URL = 'https://remitship.vercel.app'
+
 export const pageHead = (title: string, description: string, path?: string) => ({
   meta: [
     { title: `${title} | RemitShip` },
@@ -22,7 +24,7 @@ export const pageHead = (title: string, description: string, path?: string) => (
     { name: 'twitter:card', content: 'summary_large_image' },
     { name: 'twitter:title', content: `${title} | RemitShip` },
     { name: 'twitter:description', content: description },
-    ...(path ? [{ property: 'og:url', content: path }] : [{ name: 'robots', content: 'noindex, nofollow' }]),
+    ...(path ? [{ property: 'og:url', content: `${SITE_URL}${path}` }] : [{ name: 'robots', content: 'noindex, nofollow' }]),
   ],
-  links: path ? [{ rel: 'canonical', href: path }] : [],
+  links: path ? [{ rel: 'canonical', href: `${SITE_URL}${path}` }] : [],
 })
