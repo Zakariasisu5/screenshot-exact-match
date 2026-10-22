@@ -125,7 +125,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
               publisher: { "@id": "#organization" },
               potentialAction: {
                 "@type": "SearchAction",
-                target: "/track?tracking={search_term_string}",
+                target: "/track?number={search_term_string}",
                 "query-input": "required name=search_term_string",
               },
             },
