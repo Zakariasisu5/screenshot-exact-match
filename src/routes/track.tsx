@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { createFileRoute, Link } from '@tanstack/react-router'
 import { useServerFn } from '@tanstack/react-start'
 import { useQuery } from '@tanstack/react-query'
@@ -182,9 +183,10 @@ function Tracking() {
                 <p>{value('origin_country')}</p>
               </div>
               <div className="journey-line">
-                <MapPin />
-                <span />
-                <ArrowRight />
+                <MapPin className="journey-pin" />
+                <span className="journey-track" />
+                <ArrowRight className="journey-arrow desktop-arrow" />
+                <ArrowRight className="journey-arrow mobile-arrow" style={{ transform: 'rotate(90deg)' }} />
               </div>
               <div>
                 <span className="eyebrow">TO</span>
@@ -256,17 +258,53 @@ function Tracking() {
 
             {/* Progress Tracker */}
             {status !== 'returned_to_sender' && (
-              <div className="progress-tracker">
-                <h3>Delivery progress</h3>
+              <div className="progress-tracker" style={{
+                background: 'var(--card)',
+                border: '1px solid var(--border)',
+                borderRadius: 'var(--radius-lg)',
+                padding: '2rem',
+                marginBottom: '2rem'
+              }}>
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  marginBottom: '2rem'
+                }}>
+                  <h3 style={{
+                    fontSize: '1.5rem',
+                    fontWeight: 700,
+                    color: 'var(--foreground)',
+                    margin: 0
+                  }}>Delivery Progress</h3>
+                  <span style={{
+                    fontSize: '0.875rem',
+                    color: 'var(--muted-foreground)',
+                    fontWeight: 500
+                  }}>
+                    {progressStages.filter(s => s.status === 'completed').length} of {progressStages.length} stages
+                  </span>
+                </div>
                 <div className="progress-stages">
-                  {progressStages.map((stage) => {
+                  {progressStages.map((stage, index) => {
                     const Icon = stage.icon
                     return (
                       <div key={stage.key} className={`progress-stage ${stage.status}`}>
                         <div className="progress-stage-icon">
-                          <Icon size={18} />
+                          <Icon size={20} />
                         </div>
-                        <span>{stage.label}</span>
+                        <div className="progress-stage-label">
+                          <span>{stage.label}</span>
+                          {stage.status === 'current' && (
+                            <small style={{
+                              display: 'block',
+                              fontSize: '0.75rem',
+                              color: 'var(--brand-red)',
+                              marginTop: '0.25rem',
+                              fontWeight: 600
+                            }}>Current</small>
+                          )}
+                        </div>
                       </div>
                     )
                   })}
