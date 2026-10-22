@@ -3,7 +3,7 @@ import { createFileRoute, Link } from '@tanstack/react-router'
 import { useServerFn } from '@tanstack/react-start'
 import { useQuery } from '@tanstack/react-query'
 import { 
-  PackageSearch, ArrowRight, ArrowDown, MapPin, CheckCircle2, Clock3, ShieldCheck, AlertCircle, 
+  PackageSearch, ArrowRight, MapPin, CheckCircle2, Clock3, ShieldCheck, AlertCircle,
   Package, Truck, Plane, AlertTriangle, XCircle, ArrowUpRight 
 } from 'lucide-react'
 import { PublicShell } from '@/components/remitship/public-shell'
@@ -188,10 +188,12 @@ function Tracking() {
                 <p>{value('origin_country')}</p>
               </div>
               <div className="journey-line">
-                <MapPin className="journey-pin" />
+                <MapPin className="journey-pin" aria-hidden="true" />
+                <span className="journey-track" />
+                <Package className="journey-cargo" aria-hidden="true" />
                 <span className="journey-track" />
                 <ArrowRight className="journey-arrow desktop-arrow" />
-                <ArrowDown className="journey-arrow mobile-arrow" />
+                <span className="journey-track" />
               </div>
               <div>
                 <span className="eyebrow">TO</span>
@@ -263,30 +265,10 @@ function Tracking() {
 
             {/* Progress Tracker */}
             {status !== 'returned_to_sender' && status !== 'cancelled' && (
-              <div className="progress-tracker" style={{
-                background: 'var(--card)',
-                border: '1px solid var(--border)',
-                borderRadius: 'var(--radius-lg)',
-                padding: '2rem',
-                marginBottom: '2rem'
-              }}>
-                <div style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  marginBottom: '2rem'
-                }}>
-                  <h3 style={{
-                    fontSize: '1.5rem',
-                    fontWeight: 700,
-                    color: 'var(--foreground)',
-                    margin: 0
-                  }}>Delivery Progress</h3>
-                  <span style={{
-                    fontSize: '0.875rem',
-                    color: 'var(--muted-foreground)',
-                    fontWeight: 500
-                  }}>
+              <div className="progress-tracker">
+                <div className="progress-tracker-heading">
+                  <h3>Delivery Progress</h3>
+                  <span>
                     {progressStages.filter(s => s.status === 'completed').length} of {progressStages.length} stages
                   </span>
                 </div>
@@ -301,13 +283,7 @@ function Tracking() {
                         <div className="progress-stage-label">
                           <span>{stage.label}</span>
                           {stage.status === 'current' && (
-                            <small style={{
-                              display: 'block',
-                              fontSize: '0.75rem',
-                              color: 'var(--brand-red)',
-                              marginTop: '0.25rem',
-                              fontWeight: 600
-                            }}>Current</small>
+                            <small>Current</small>
                           )}
                         </div>
                       </div>
