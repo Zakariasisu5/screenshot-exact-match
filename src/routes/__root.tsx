@@ -104,10 +104,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           "@graph": [
             {
               "@type": "Organization",
-              "@id": "#organization",
+              "@id": "https://remitship.vercel.app/#organization",
               name: "RemitShip",
+              url: "https://remitship.vercel.app/",
               slogan: "Global Reach. Local Care.",
-              logo: "/favicon.png",
+              logo: "https://remitship.vercel.app/favicon.png",
               description:
                 "RemitShip is an international shipping and logistics company providing air freight, sea cargo, express courier, customs clearance and shipment tracking.",
               knowsAbout: [
@@ -122,10 +123,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
             {
               "@type": "WebSite",
               name: "RemitShip",
-              publisher: { "@id": "#organization" },
+              url: "https://remitship.vercel.app/",
+              publisher: { "@id": "https://remitship.vercel.app/#organization" },
               potentialAction: {
                 "@type": "SearchAction",
-                target: "/track?number={search_term_string}",
+                target: "https://remitship.vercel.app/track?number={search_term_string}",
                 "query-input": "required name=search_term_string",
               },
             },

@@ -51,3 +51,5 @@ User-agent: *
 Allow: /
 Disallow: /admin
 Disallow: /auth
+
+Sitemap: https://remitship.vercel.app/sitemap.xml

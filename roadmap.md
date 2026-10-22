@@ -4,4 +4,4 @@
 - [ ] Shipment creation, event history, customs, proof of delivery, and assignments
 - [ ] Staff and transport network management
 - [ ] Tests and public end-to-end verification
-- [ ] Authenticated end-to-end verification (requires available staff session)- [x] Google + AI search setup (sitemap waits on a published web address)
+- [ ] Authenticated end-to-end verification (requires available staff session)- [x] Google + AI search setup (sitemap on remitship.vercel.app; swap domain when custom one is bought)
