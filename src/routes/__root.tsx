@@ -78,6 +78,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
+      { name: "google-site-verification", content: "dGSP1WqDu6MzUodp0yq8MnMEgEDwpKFZj6m8mFz_UwU" },
       { title: "RemitShip — International Shipping" },
       { name: "description", content: "RemitShip international shipping and shipment tracking." },
       { name: "author", content: "RemitShip" },
