@@ -77,7 +77,7 @@ function Tracking() {
 
   const status = value('status')
   const statusCategory = getStatusCategory(status)
-  const progressStages = getProgressStages(status, events)
+  const progressStages = getProgressStages(status, events as { status: string }[])
   const isDelivered = status === 'delivered'
   const hasException = statusCategory === 'exception'
 
@@ -242,7 +242,7 @@ function Tracking() {
                       <Package size={20} />
                       <section>
                         <span>Number of pieces</span>
-                        <strong>{shipment.pieces}</strong>
+                        <strong>{String(shipment.pieces)}</strong>
                       </section>
                     </div>
                   )}
