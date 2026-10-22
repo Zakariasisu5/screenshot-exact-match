@@ -18,7 +18,8 @@ export const Route = createFileRoute('/track')({
   }),
   head: () => pageHead(
     'Track Shipment',
-    'Track your RemitShip shipment with verified checkpoints, delivery estimates, and customs updates. No account required.'
+    'Track your RemitShip shipment with verified checkpoints, delivery estimates, and customs updates. No account required.',
+    '/track'
   ),
   component: Tracking
 })

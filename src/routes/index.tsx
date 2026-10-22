@@ -27,8 +27,9 @@ import remitship from "@/assets/remitship.jpeg";
 export const Route = createFileRoute("/")({
   head: () =>
     pageHead(
-      "RemitShip — International Shipping",
-      "International shipping with personal care. Explore RemitShip services and track your shipment across borders.",
+      "International Shipping, Air & Sea Cargo",
+      "RemitShip is an international shipping company offering air freight, sea cargo, express courier, customs clearance and real-time shipment tracking worldwide.",
+      "/",
     ),
   component: Home,
 });

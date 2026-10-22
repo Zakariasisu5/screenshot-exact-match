@@ -96,6 +96,43 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Figtree:wght@400;500;600&display=swap" },
     ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "Organization",
+              "@id": "#organization",
+              name: "RemitShip",
+              slogan: "Global Reach. Local Care.",
+              logo: "/favicon.png",
+              description:
+                "RemitShip is an international shipping and logistics company providing air freight, sea cargo, express courier, customs clearance and shipment tracking.",
+              knowsAbout: [
+                "International shipping",
+                "Air freight",
+                "Sea freight",
+                "Express courier",
+                "Customs clearance",
+                "Shipment tracking",
+              ],
+            },
+            {
+              "@type": "WebSite",
+              name: "RemitShip",
+              publisher: { "@id": "#organization" },
+              potentialAction: {
+                "@type": "SearchAction",
+                target: "/track?tracking={search_term_string}",
+                "query-input": "required name=search_term_string",
+              },
+            },
+          ],
+        }),
+      },
+    ],
   }),
   shellComponent: RootShell,
   component: RootComponent,
