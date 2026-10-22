@@ -25,22 +25,19 @@ import manship from "@/assets/manship.jpeg";
 import remitship from "@/assets/remitship.jpeg";
 
 export const Route = createFileRoute("/")({
-  head: () => ({
-    ...pageHead(
+  head: () => {
+    const headData = pageHead(
       "International Shipping, Air & Sea Cargo",
       "International shipping, air freight, sea cargo & road transport. Track your RemitShip shipment across borders with real-time updates."
-    ),
-    meta: [
-      ...(pageHead(
-        "International Shipping, Air & Sea Cargo",
-        "International shipping, air freight, sea cargo & road transport. Track your RemitShip shipment across borders with real-time updates."
-      ).meta || []),
-      { name: "google-site-verification", content: "-AGYwky1GR5qBvq_o9jJezfh7bTmJE65Y0a3Ehl4FQk" }
-    ]
-  }),
-      "RemitShip is an international shipping company offering air freight, sea cargo, express courier, customs clearance and real-time shipment tracking worldwide.",
-      "/",
-    ),
+    );
+    return {
+      ...headData,
+      meta: [
+        ...(headData.meta || []),
+        { name: "google-site-verification", content: "-AGYwky1GR5qBvq_o9jJezfh7bTmJE65Y0a3Ehl4FQk" }
+      ]
+    };
+  },
   component: Home,
 });
 
