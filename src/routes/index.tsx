@@ -516,7 +516,7 @@ function Home() {
       {/* Image Section 2 - Slide-in Effect */}
       <section
         ref={imageRef2}
-        className="scroll-image-section"
+        className="scroll-image-section image-section-responsive"
         style={{
           position: "relative",
           minHeight: "500px",
@@ -524,7 +524,6 @@ function Home() {
           gridTemplateColumns: "1fr 1fr",
           gap: 0,
         }}
-        className="image-section-responsive"
       >
         <div
           style={{
