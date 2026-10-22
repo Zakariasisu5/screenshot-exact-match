@@ -1,0 +1,18 @@
+# RemitShip
+
+> RemitShip is an international shipping and logistics company — "Global Reach. Local Care." — offering air freight, sea cargo, express courier, customs clearance and real-time shipment tracking.
+
+RemitShip ships documents, parcels and cargo across borders. Customers track shipments on the website with a RemitShip tracking number (format: RS followed by 8 digits, e.g. RS26000101). No account is needed to track. Public tracking shows only verified checkpoints, origin, destination, customs status and delivery estimates; private contact details are never shown.
+
+## Pages
+
+- [Home](/): Overview of RemitShip international shipping.
+- [Track a shipment](/track): Look up a shipment by its RemitShip tracking number.
+- [Shipping services](/services): Air freight, sea freight, express courier and international shipping.
+- [About RemitShip](/about): Who RemitShip is and how it handles shipments.
+- [Contact](/contact): Reach RemitShip about shipping, tracking and service availability.
+
+## Optional
+
+- [Privacy policy](/privacy): How RemitShip protects shipment and customer information.
+- [Terms and conditions](/terms): RemitShip shipment and service terms.
