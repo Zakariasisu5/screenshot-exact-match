@@ -3975,37 +3975,12 @@ svg {
   .journey-line {
     grid-column: auto;
     flex-direction: column;
+    align-self: center;
     padding: 0.75rem 0;
-    width: 100%;
+    width: auto;
     gap: 0.5rem;
   }
-  
-  .journey-track {
-    width: 2px;
-    height: 40px;
-    min-width: 0;
-    background: linear-gradient(180deg, 
-      var(--border) 0%, 
-      var(--brand-navy) 50%, 
-      var(--border) 100%);
-    background-size: 100% 200%;
-  }
-  
-  @media (prefers-reduced-motion: no-preference) {
-    .journey-track {
-      animation: cargoFlowVertical 3s linear infinite;
-    }
-  }
-  
-  @keyframes cargoFlowVertical {
-    0% {
-      background-position: 0 200%;
-    }
-    100% {
-      background-position: 0 -200%;
-    }
-  }
-  
+
   .desktop-arrow {
     display: none;
   }
@@ -4088,6 +4063,15 @@ svg {
   }
 }
 
+@keyframes cargoFlowVertical {
+  0% {
+    background-position: 0 200%;
+  }
+  100% {
+    background-position: 0 -200%;
+  }
+}
+
 @keyframes arrowPulse {
   0%, 100% {
     opacity: 1;
@@ -4102,11 +4086,11 @@ svg {
 @keyframes arrowPulseMobile {
   0%, 100% {
     opacity: 1;
-    transform: rotate(90deg) translateX(0);
+    transform: translateY(0);
   }
   50% {
     opacity: 0.6;
-    transform: rotate(90deg) translateX(4px);
+    transform: translateY(4px);
   }
 }
 
@@ -4119,6 +4103,48 @@ svg {
     animation: arrowPulse 2s ease-in-out infinite;
   }
   
+}
+
+@media (max-width: 640px) {
+  .journey-summary {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+  }
+
+  .journey-line {
+    flex-direction: column;
+    align-self: center;
+    padding: 0.75rem 0;
+  }
+
+  .journey-track {
+    flex: 0 0 auto;
+    width: 2px;
+    height: 40px;
+    min-width: 0;
+    background: linear-gradient(180deg,
+      var(--border) 0%,
+      var(--brand-navy) 50%,
+      var(--border) 100%);
+    background-size: 100% 200%;
+  }
+
+  .desktop-arrow {
+    display: none;
+  }
+
+  .mobile-arrow {
+    display: block;
+  }
+}
+
+@media (max-width: 640px) and (prefers-reduced-motion: no-preference) {
+  .journey-track {
+    animation-name: cargoFlowVertical;
+  }
+
   .mobile-arrow {
     animation: arrowPulseMobile 2s ease-in-out infinite;
   }
@@ -4128,7 +4154,7 @@ svg {
   .journey-track {
     background: var(--border);
   }
-  
+
   .journey-arrow {
     animation: none;
   }

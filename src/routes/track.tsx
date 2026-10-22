@@ -3,7 +3,7 @@ import { createFileRoute, Link } from '@tanstack/react-router'
 import { useServerFn } from '@tanstack/react-start'
 import { useQuery } from '@tanstack/react-query'
 import { 
-  PackageSearch, ArrowRight, MapPin, CheckCircle2, Clock3, ShieldCheck, AlertCircle, 
+  PackageSearch, ArrowRight, ArrowDown, MapPin, CheckCircle2, Clock3, ShieldCheck, AlertCircle, 
   Package, Truck, Plane, AlertTriangle, XCircle, ArrowUpRight 
 } from 'lucide-react'
 import { PublicShell } from '@/components/remitship/public-shell'
@@ -186,7 +186,7 @@ function Tracking() {
                 <MapPin className="journey-pin" />
                 <span className="journey-track" />
                 <ArrowRight className="journey-arrow desktop-arrow" />
-                <ArrowRight className="journey-arrow mobile-arrow" style={{ transform: 'rotate(90deg)' }} />
+                <ArrowDown className="journey-arrow mobile-arrow" />
               </div>
               <div>
                 <span className="eyebrow">TO</span>
