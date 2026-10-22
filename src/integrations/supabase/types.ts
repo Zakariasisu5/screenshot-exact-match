@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 export type Json =
   | string
   | number
@@ -398,6 +399,129 @@ export type Database = {
           },
         ]
       }
+      shipment_notification_outbox: {
+        Row: {
+          attempt_count: number
+          attempts_in_cycle: number
+          created_at: string
+          delivery_status: string
+          error_message: string | null
+          event_at: string
+          event_type: string
+          id: string
+          last_attempt_at: string | null
+          locked_until: string | null
+          location: string | null
+          new_status: Database["public"]["Enums"]["shipment_status"]
+          next_retry_at: string | null
+          origin_city: string | null
+          origin_country: string | null
+          parcel_description: string | null
+          previous_status: Database["public"]["Enums"]["shipment_status"] | null
+          provider_message_id: string | null
+          provider_status: string | null
+          test_mode: boolean
+          recipient_email: string | null
+          recipient_name: string | null
+          sender_name: string | null
+          sent_at: string | null
+          shipment_created_at: string
+          shipment_id: string | null
+          source_event_id: string | null
+          tracking_number: string
+          updated_at: string
+          destination_city: string | null
+          destination_country: string | null
+          event_description: string | null
+          estimated_delivery_at: string | null
+        }
+        Insert: {
+          attempt_count?: number
+          attempts_in_cycle?: number
+          created_at?: string
+          delivery_status?: string
+          error_message?: string | null
+          event_at: string
+          event_type: string
+          id?: string
+          last_attempt_at?: string | null
+          locked_until?: string | null
+          location?: string | null
+          new_status: Database["public"]["Enums"]["shipment_status"]
+          next_retry_at?: string | null
+          origin_city?: string | null
+          origin_country?: string | null
+          parcel_description?: string | null
+          previous_status?: Database["public"]["Enums"]["shipment_status"] | null
+          provider_message_id?: string | null
+          provider_status?: string | null
+          test_mode?: boolean
+          recipient_email?: string | null
+          recipient_name?: string | null
+          sender_name?: string | null
+          sent_at?: string | null
+          shipment_created_at: string
+          shipment_id?: string | null
+          source_event_id?: string | null
+          tracking_number: string
+          updated_at?: string
+          destination_city?: string | null
+          destination_country?: string | null
+          event_description?: string | null
+          estimated_delivery_at?: string | null
+        }
+        Update: {
+          attempt_count?: number
+          attempts_in_cycle?: number
+          created_at?: string
+          delivery_status?: string
+          error_message?: string | null
+          event_at?: string
+          event_type?: string
+          id?: string
+          last_attempt_at?: string | null
+          locked_until?: string | null
+          location?: string | null
+          new_status?: Database["public"]["Enums"]["shipment_status"]
+          next_retry_at?: string | null
+          origin_city?: string | null
+          origin_country?: string | null
+          parcel_description?: string | null
+          previous_status?: Database["public"]["Enums"]["shipment_status"] | null
+          provider_message_id?: string | null
+          provider_status?: string | null
+          test_mode?: boolean
+          recipient_email?: string | null
+          recipient_name?: string | null
+          sender_name?: string | null
+          sent_at?: string | null
+          shipment_created_at?: string
+          shipment_id?: string | null
+          source_event_id?: string | null
+          tracking_number?: string
+          updated_at?: string
+          destination_city?: string | null
+          destination_country?: string | null
+          event_description?: string | null
+          estimated_delivery_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "shipment_notification_outbox_shipment_id_fkey"
+            columns: ["shipment_id"]
+            isOneToOne: false
+            referencedRelation: "shipments"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "shipment_notification_outbox_source_event_id_fkey"
+            columns: ["source_event_id"]
+            isOneToOne: false
+            referencedRelation: "shipment_events"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       shipments: {
         Row: {
           assigned_courier_id: string | null
@@ -762,6 +886,18 @@ export type Database = {
         }
         Returns: string
       }
+      claim_shipment_notifications: {
+        Args: { p_batch_size?: number; p_lease_seconds?: number }
+        Returns: Database["public"]["Tables"]["shipment_notification_outbox"]["Row"][]
+      }
+      request_shipment_notification_retry: {
+        Args: { p_notification_id: string }
+        Returns: string
+      }
+      record_resend_notification_webhook: {
+        Args: { p_event_type: string; p_notification_id: string; p_provider_event_id: string; p_provider_message_id: string }
+        Returns: boolean
+      }
     }
     Enums: {
       event_kind: "verified" | "estimate" | "customs" | "internal"
@@ -779,6 +915,8 @@ export type Database = {
         | "out_for_delivery"
         | "delivery_attempted"
         | "delivered"
+        | "delayed"
+        | "cancelled"
         | "exception"
         | "returned_to_sender"
       staff_role: "super_admin" | "operations_manager" | "courier"

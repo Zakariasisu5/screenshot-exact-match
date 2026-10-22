@@ -31,7 +31,7 @@ export const listShipments=createServerFn({method:'GET'}).middleware([requireSup
   await staffContext(context)
   let query=context.supabase.from('shipments').select('id,tracking_number,status,sender_name,recipient_name,origin_city,destination_city,service_type,created_at,is_demo',{count:'exact'}).eq('is_demo',data.demo).order('created_at',{ascending:false})
   if(data.search)query=query.ilike('tracking_number',`%${data.search.replace(/[^a-zA-Z0-9]/g,'')}%`)
-  if(data.status!=='all')query=query.eq('status',z.enum(['shipment_registered','pickup_scheduled','collected','at_origin_facility','ready_for_dispatch','in_transit','arrived_in_destination_country','customs_clearance','customs_hold','at_destination_facility','out_for_delivery','delivery_attempted','delivered','exception','returned_to_sender']).parse(data.status))
+  if(data.status!=='all')query=query.eq('status',z.enum(['shipment_registered','pickup_scheduled','collected','at_origin_facility','ready_for_dispatch','in_transit','arrived_in_destination_country','customs_clearance','customs_hold','at_destination_facility','out_for_delivery','delivery_attempted','delivered','delayed','cancelled','exception','returned_to_sender']).parse(data.status))
   const {data:rows,error,count}=await query.range(data.page*20,data.page*20+19);if(error)throw new Error(error.message)
   const {data:stats,error:statsError}=await context.supabase.from('shipments').select('status').eq('is_demo',data.demo).limit(1000)
   if(statsError)throw new Error(statsError.message)
@@ -54,6 +54,22 @@ export const createShipment=createServerFn({method:'POST'}).middleware([requireS
 export const recordEvent=createServerFn({method:'POST'}).middleware([requireSupabaseAuth]).inputValidator((input:unknown)=>eventSchema.parse(input)).handler(async({data,context})=>{
  const assigned=await staffContext(context);if(!mayRecord(assigned,data.status,'verified'))throw new Error('This event is not permitted for your role.')
  const {error}=await context.supabase.rpc('record_shipment_event',{p_shipment_id:data.shipment_id,p_status:data.status,p_description:data.description,p_kind:'verified',p_occurred_at:data.occurred_at,p_reason:data.reason||'Status update',...(data.location?{p_location:data.location}:{}),...(data.country?{p_country:data.country}:{}),...(data.latitude!==undefined?{p_latitude:data.latitude}:{}),...(data.longitude!==undefined?{p_longitude:data.longitude}:{})});if(error)throw new Error(error.message);return {ok:true}
+})
+export const listShipmentNotifications=createServerFn({method:'GET'}).middleware([requireSupabaseAuth]).handler(async({context})=>{
+ const assigned=await staffContext(context);if(!mayManage(assigned))throw new Error('Manager access required.')
+ const [rows,...counts]=await Promise.all([
+  context.supabase.from('shipment_notification_outbox').select('id,tracking_number,recipient_email,event_type,new_status,previous_status,delivery_status,provider_status,test_mode,attempt_count,provider_message_id,error_message,last_attempt_at,next_retry_at,created_at,sent_at').order('created_at',{ascending:false}).limit(100),
+  ...(['queued','processing','sent','failed','permanently_failed'] as const).map(status=>context.supabase.from('shipment_notification_outbox').select('id',{count:'exact',head:true}).eq('delivery_status',status))
+ ])
+ if(rows.error||counts.some(result=>result.error))throw new Error('Unable to load shipment notifications.')
+ const [queued,processing,sent,failed,permanentlyFailed]=counts.map(result=>result.count??0)
+ return {rows:rows.data??[],stats:{queued,processing,sent,failed,permanentlyFailed}}
+})
+export const retryShipmentNotification=createServerFn({method:'POST'}).middleware([requireSupabaseAuth]).inputValidator((input:unknown)=>z.object({notification_id:z.string().uuid()}).parse(input)).handler(async({data,context})=>{
+ const assigned=await staffContext(context);if(!mayManage(assigned))throw new Error('Manager access required.')
+ const {data:notificationId,error}=await context.supabase.rpc('request_shipment_notification_retry',{p_notification_id:data.notification_id})
+ if(error||!notificationId)throw new Error(error?.message??'Unable to retry this notification.')
+ return {notification_id:notificationId}
 })
 export const getNetwork=createServerFn({method:'GET'}).middleware([requireSupabaseAuth]).handler(async({context})=>{
  await staffContext(context);const [couriers,vehicles,facilities]=await Promise.all([context.supabase.from('couriers').select('*').order('name'),context.supabase.from('vehicles').select('*').order('plate'),context.supabase.from('facilities').select('*').order('name')]);for(const r of [couriers,vehicles,facilities])if(r.error)throw new Error(r.error.message);return {couriers:couriers.data??[],vehicles:vehicles.data??[],facilities:facilities.data??[]}

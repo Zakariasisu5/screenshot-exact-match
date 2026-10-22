@@ -22,6 +22,7 @@ import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/
 import { Route as AuthResetRouteImport } from './routes/auth_.reset'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
 import { Route as AuthenticatedAdminNetworkRouteImport } from './routes/_authenticated/admin.network'
+import { Route as AuthenticatedAdminNotificationsRouteImport } from './routes/_authenticated/admin.notifications'
 import { Route as AuthenticatedAdminShipmentsRouteImport } from './routes/_authenticated/admin.shipments'
 import { Route as AuthenticatedAdminStaffRouteImport } from './routes/_authenticated/admin.staff'
 import { Route as AuthenticatedAdminShipmentsIdRouteImport } from './routes/_authenticated/admin.shipments_.$id'
@@ -92,6 +93,12 @@ const AuthenticatedAdminNetworkRoute =
     path: '/network',
     getParentRoute: () => AuthenticatedAdminRoute,
   } as any)
+const AuthenticatedAdminNotificationsRoute =
+  AuthenticatedAdminNotificationsRouteImport.update({
+    id: '/notifications',
+    path: '/notifications',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
 const AuthenticatedAdminShipmentsRoute =
   AuthenticatedAdminShipmentsRouteImport.update({
     id: '/shipments',
@@ -128,6 +135,7 @@ export interface FileRoutesByFullPath {
   '/admin': typeof AuthenticatedAdminRouteWithChildren
   '/auth/reset': typeof AuthResetRoute
   '/admin/network': typeof AuthenticatedAdminNetworkRoute
+  '/admin/notifications': typeof AuthenticatedAdminNotificationsRoute
   '/admin/shipments': typeof AuthenticatedAdminShipmentsRoute
   '/admin/staff': typeof AuthenticatedAdminStaffRoute
   '/admin/': typeof AuthenticatedAdminIndexRoute
@@ -145,6 +153,7 @@ export interface FileRoutesByTo {
   '/track': typeof TrackRoute
   '/auth/reset': typeof AuthResetRoute
   '/admin/network': typeof AuthenticatedAdminNetworkRoute
+  '/admin/notifications': typeof AuthenticatedAdminNotificationsRoute
   '/admin/shipments': typeof AuthenticatedAdminShipmentsRoute
   '/admin/staff': typeof AuthenticatedAdminStaffRoute
   '/admin': typeof AuthenticatedAdminIndexRoute
@@ -165,6 +174,7 @@ export interface FileRoutesById {
   '/_authenticated/admin': typeof AuthenticatedAdminRouteWithChildren
   '/auth_/reset': typeof AuthResetRoute
   '/_authenticated/admin/network': typeof AuthenticatedAdminNetworkRoute
+  '/_authenticated/admin/notifications': typeof AuthenticatedAdminNotificationsRoute
   '/_authenticated/admin/shipments': typeof AuthenticatedAdminShipmentsRoute
   '/_authenticated/admin/staff': typeof AuthenticatedAdminStaffRoute
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
@@ -185,6 +195,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/auth/reset'
     | '/admin/network'
+    | '/admin/notifications'
     | '/admin/shipments'
     | '/admin/staff'
     | '/admin/'
@@ -202,6 +213,7 @@ export interface FileRouteTypes {
     | '/track'
     | '/auth/reset'
     | '/admin/network'
+    | '/admin/notifications'
     | '/admin/shipments'
     | '/admin/staff'
     | '/admin'
@@ -221,6 +233,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin'
     | '/auth_/reset'
     | '/_authenticated/admin/network'
+    | '/_authenticated/admin/notifications'
     | '/_authenticated/admin/shipments'
     | '/_authenticated/admin/staff'
     | '/_authenticated/admin/'
@@ -334,6 +347,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminNetworkRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
     }
+    '/_authenticated/admin/notifications': {
+      id: '/_authenticated/admin/notifications'
+      path: '/notifications'
+      fullPath: '/admin/notifications'
+      preLoaderRoute: typeof AuthenticatedAdminNotificationsRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
     '/_authenticated/admin/shipments': {
       id: '/_authenticated/admin/shipments'
       path: '/shipments'
@@ -367,6 +387,7 @@ declare module '@tanstack/react-router' {
 
 interface AuthenticatedAdminRouteChildren {
   AuthenticatedAdminNetworkRoute: typeof AuthenticatedAdminNetworkRoute
+  AuthenticatedAdminNotificationsRoute: typeof AuthenticatedAdminNotificationsRoute
   AuthenticatedAdminShipmentsRoute: typeof AuthenticatedAdminShipmentsRoute
   AuthenticatedAdminStaffRoute: typeof AuthenticatedAdminStaffRoute
   AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
@@ -376,6 +397,7 @@ interface AuthenticatedAdminRouteChildren {
 
 const AuthenticatedAdminRouteChildren: AuthenticatedAdminRouteChildren = {
   AuthenticatedAdminNetworkRoute: AuthenticatedAdminNetworkRoute,
+  AuthenticatedAdminNotificationsRoute: AuthenticatedAdminNotificationsRoute,
   AuthenticatedAdminShipmentsRoute: AuthenticatedAdminShipmentsRoute,
   AuthenticatedAdminStaffRoute: AuthenticatedAdminStaffRoute,
   AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,

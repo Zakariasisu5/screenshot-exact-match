@@ -30,7 +30,7 @@ type ShipmentStatus = string | null
 function getStatusCategory(status: ShipmentStatus): 'delivered' | 'in_transit' | 'exception' | 'pending' {
   if (!status) return 'pending'
   if (status === 'delivered') return 'delivered'
-  if (['customs_hold', 'exception', 'delivery_attempted', 'returned_to_sender'].includes(status)) return 'exception'
+  if (['customs_hold', 'exception', 'delivery_attempted', 'returned_to_sender', 'delayed', 'cancelled'].includes(status)) return 'exception'
   if (['in_transit', 'out_for_delivery', 'ready_for_dispatch', 'at_destination_facility', 'at_origin_facility'].includes(status)) return 'in_transit'
   return 'pending'
 }
@@ -46,7 +46,10 @@ function getProgressStages(status: ShipmentStatus, events: Array<{ status: strin
   ]
 
   const eventStatuses = new Set(events.map(e => e.status))
-  const currentStage = stages.findIndex(stage => stage.statuses.includes(status || ''))
+  const lastProgressStatus = status === 'delayed'
+    ? events.find(event => event.status !== 'delayed' && event.status !== 'cancelled')?.status
+    : status
+  const currentStage = stages.findIndex(stage => stage.statuses.includes(lastProgressStatus || ''))
 
   return stages.map((stage, index) => {
     const hasVerifiedEvent = stage.statuses.some(s => eventStatuses.has(s))
@@ -161,7 +164,9 @@ function Tracking() {
                 <AlertTriangle size={20} style={{ color: 'oklch(0.5 0.12 84)', flexShrink: 0 }} />
                 <div>
                   <p style={{ margin: 0, fontWeight: 600, color: 'oklch(0.4 0.1 84)' }}>
-                    {status === 'customs_hold' ? 'Customs clearance in progress' : 
+                    {status === 'customs_hold' ? 'Customs clearance in progress' :
+                     status === 'delayed' ? 'Your shipment has been delayed' :
+                     status === 'cancelled' ? 'Your shipment has been cancelled' :
                      status === 'delivery_attempted' ? 'Delivery was attempted' :
                      status === 'returned_to_sender' ? 'Shipment returned to sender' :
                      'Delivery exception'}
@@ -257,7 +262,7 @@ function Tracking() {
             )}
 
             {/* Progress Tracker */}
-            {status !== 'returned_to_sender' && (
+            {status !== 'returned_to_sender' && status !== 'cancelled' && (
               <div className="progress-tracker" style={{
                 background: 'var(--card)',
                 border: '1px solid var(--border)',

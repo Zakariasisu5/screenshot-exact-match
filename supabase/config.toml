@@ -1,1 +1,7 @@
 project_id = "xkgivujyqanxaaiagovf"
+
+[functions.process-shipment-notifications]
+verify_jwt = false
+
+[functions.resend-notification-webhook]
+verify_jwt = false

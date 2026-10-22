@@ -1,5 +1,5 @@
 import { z } from 'zod'
-export const statuses = ['shipment_registered','pickup_scheduled','collected','at_origin_facility','ready_for_dispatch','in_transit','arrived_in_destination_country','customs_clearance','customs_hold','at_destination_facility','out_for_delivery','delivery_attempted','delivered','exception','returned_to_sender'] as const
+export const statuses = ['shipment_registered','pickup_scheduled','collected','at_origin_facility','ready_for_dispatch','in_transit','arrived_in_destination_country','customs_clearance','customs_hold','at_destination_facility','out_for_delivery','delivery_attempted','delivered','delayed','cancelled','exception','returned_to_sender'] as const
 export const roles = ['super_admin','operations_manager','courier'] as const
 export const label = (value: string | null | undefined) => value ? value.replaceAll('_',' ').replace(/\b\w/g, c => c.toUpperCase()) : 'Not available'
 export const trackingSchema = z.object({ tracking: z.string().trim().toUpperCase().regex(/^RS\d{8}$/, 'Enter a valid RemitShip tracking number, such as RS26000101.'), demo: z.boolean().default(false) })
