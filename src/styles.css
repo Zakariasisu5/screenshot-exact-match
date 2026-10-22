@@ -4369,3 +4369,14 @@ a svg {
   line-height: 1.5;
   margin: 1rem 0;
 }
+
+/* Image section responsive */
+.image-section-responsive {
+  grid-template-columns: 1fr 1fr;
+}
+
+@media (max-width: 1024px) {
+  .image-section-responsive {
+    grid-template-columns: 1fr !important;
+  }
+}
