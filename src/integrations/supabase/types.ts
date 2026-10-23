@@ -401,6 +401,8 @@ export type Database = {
       shipment_notification_outbox: {
         Row: {
           attempt_count: number
+          attempts_in_cycle: number
+          test_mode: boolean
           created_at: string
           delivery_status: string
           destination_city: string | null
@@ -415,7 +417,7 @@ export type Database = {
           location: string | null
           locked_until: string | null
           new_status: Database["public"]["Enums"]["shipment_status"]
-          next_retry_at: string
+          next_retry_at: string | null
           origin_city: string | null
           origin_country: string | null
           parcel_description: string | null
@@ -434,6 +436,8 @@ export type Database = {
         }
         Insert: {
           attempt_count?: number
+          attempts_in_cycle?: number
+          test_mode?: boolean
           created_at?: string
           delivery_status?: string
           destination_city?: string | null
@@ -469,6 +473,8 @@ export type Database = {
         }
         Update: {
           attempt_count?: number
+          attempts_in_cycle?: number
+          test_mode?: boolean
           created_at?: string
           delivery_status?: string
           destination_city?: string | null
