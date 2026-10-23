@@ -28,7 +28,8 @@ export const Route = createFileRoute("/")({
   head: () => {
     const headData = pageHead(
       "International Shipping, Air & Sea Cargo",
-      "International shipping, air freight, sea cargo & road transport. Track your RemitShip shipment across borders with real-time updates."
+      "International shipping, air freight, sea cargo & road transport. Track your RemitShip shipment across borders with real-time updates.",
+      "/"
     );
     return {
       ...headData,

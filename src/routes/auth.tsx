@@ -9,7 +9,7 @@ import { PasswordInput } from '@/components/remitship/password-input'
 import { pageHead } from '@/lib/remitship'
 
 export const Route = createFileRoute('/auth')({
-  head: () => pageHead('Staff Sign In', 'Secure RemitShip staff sign-in for shipment operations and authorized delivery updates.'),
+  head: () => pageHead('Staff Sign In', 'Secure RemitShip staff sign-in for shipment operations and authorized delivery updates.', '/auth', 'noindex, nofollow'),
   component: Auth
 })
 

@@ -13,7 +13,12 @@ export function publicShipment<T extends Partial<Record<PublicField, string | nu
 export const dateLabel = (value: string | null | undefined) => value ? new Intl.DateTimeFormat(undefined,{dateStyle:'medium',timeStyle:'short',timeZoneName:undefined}).format(new Date(value)) : 'Not available'
 export const SITE_URL = 'https://remitship.vercel.app'
 
-export const pageHead = (title: string, description: string, path?: string) => ({
+export const pageHead = (
+  title: string,
+  description: string,
+  path?: string,
+  robots = path ? 'index, follow' : 'noindex, nofollow',
+) => ({
   meta: [
     { title: `${title} | RemitShip` },
     { name: 'description', content: description },
@@ -24,7 +29,8 @@ export const pageHead = (title: string, description: string, path?: string) => (
     { name: 'twitter:card', content: 'summary_large_image' },
     { name: 'twitter:title', content: `${title} | RemitShip` },
     { name: 'twitter:description', content: description },
-    ...(path ? [{ property: 'og:url', content: `${SITE_URL}${path}` }] : [{ name: 'robots', content: 'noindex, nofollow' }]),
+    { name: 'robots', content: robots },
+    ...(path ? [{ property: 'og:url', content: `${SITE_URL}${path}` }] : []),
   ],
   links: path ? [{ rel: 'canonical', href: `${SITE_URL}${path}` }] : [],
 })

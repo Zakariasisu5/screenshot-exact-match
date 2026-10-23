@@ -17,10 +17,11 @@ export const Route = createFileRoute('/track')({
     number: typeof search['number'] === 'string' ? search['number'] : '',
     demo: search['demo'] === true || search['demo'] === 'true'
   }),
-  head: () => pageHead(
+  head: ({ match }) => pageHead(
     'Track Shipment',
     'Track your RemitShip shipment with verified checkpoints, delivery estimates, and customs updates. No account required.',
-    '/track'
+    '/track',
+    match.search.number || match.search.demo ? 'noindex, follow' : 'index, follow'
   ),
   component: Tracking
 })

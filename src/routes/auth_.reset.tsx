@@ -8,7 +8,7 @@ import { PasswordInput } from '@/components/remitship/password-input'
 import { pageHead } from '@/lib/remitship'
 
 export const Route = createFileRoute('/auth_/reset')({
-  head: () => pageHead('Reset Password', 'Set a new password for your RemitShip staff account.'),
+  head: () => pageHead('Reset Password', 'Set a new password for your RemitShip staff account.', '/auth/reset', 'noindex, nofollow'),
   component: Reset
 })
 
