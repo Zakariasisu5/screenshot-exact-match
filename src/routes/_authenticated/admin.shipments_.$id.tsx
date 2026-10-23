@@ -54,6 +54,11 @@ function ShipmentDetail(){
         {pod.length>0?pod.map(p=><p key={p.id}>Delivered to <strong>{p.received_by_name}</strong> on {dateLabel(p.delivered_at)}</p>):<p className="panel-note">No delivery record yet.</p>}
       </section>
     </div>
+    {manager&&<section className="panel"><h3>Customer emails</h3>
+      {!s.recipient_email&&<p className="panel-note">No recipient email on file — the customer won't receive email updates.</p>}
+      {!query.data.emails.length?<p className="panel-note">No emails queued for this shipment yet.</p>:<ul className="timeline">{query.data.emails.map(m=><li key={m.id}><span className="timeline-dot"/><div><strong>{m.event_type==='shipment_created'?'Shipment created':label(m.new_status)}</strong> <span className={`status-badge ${m.delivery_status==='sent'?'success':m.delivery_status.includes('failed')?'warning':''}`}>{label(m.delivery_status)}</span>{m.provider_status&&<small className="event-tag">{label(m.provider_status)}</small>}{m.test_mode&&<small className="event-tag">Test</small>}{m.error_message&&<p>{m.error_message}</p>}<small>{dateLabel(m.sent_at??m.created_at)}</small></div></li>)}</ul>}
+      <Link to="/admin/notifications" className="text-link">View all notifications</Link>
+    </section>}
   </>
 }
 function Contact({phone,email}:{phone:string|null,email:string|null}){return <div className="contact-actions">{phone?<Button asChild variant="outline" size="sm"><a href={`tel:${phone}`}><Phone/>{phone}</a></Button>:<small>No phone on file</small>}{email&&<Button asChild variant="ghost" size="sm"><a href={`mailto:${email}`}><Mail/>{email}</a></Button>}</div>}
