@@ -402,7 +402,6 @@ export type Database = {
         Row: {
           attempt_count: number
           attempts_in_cycle: number
-          test_mode: boolean
           created_at: string
           delivery_status: string
           destination_city: string | null
@@ -431,13 +430,13 @@ export type Database = {
           shipment_created_at: string
           shipment_id: string | null
           source_event_id: string | null
+          test_mode: boolean
           tracking_number: string
           updated_at: string
         }
         Insert: {
           attempt_count?: number
           attempts_in_cycle?: number
-          test_mode?: boolean
           created_at?: string
           delivery_status?: string
           destination_city?: string | null
@@ -452,7 +451,7 @@ export type Database = {
           location?: string | null
           locked_until?: string | null
           new_status: Database["public"]["Enums"]["shipment_status"]
-          next_retry_at?: string
+          next_retry_at?: string | null
           origin_city?: string | null
           origin_country?: string | null
           parcel_description?: string | null
@@ -468,13 +467,13 @@ export type Database = {
           shipment_created_at: string
           shipment_id?: string | null
           source_event_id?: string | null
+          test_mode?: boolean
           tracking_number: string
           updated_at?: string
         }
         Update: {
           attempt_count?: number
           attempts_in_cycle?: number
-          test_mode?: boolean
           created_at?: string
           delivery_status?: string
           destination_city?: string | null
@@ -489,7 +488,7 @@ export type Database = {
           location?: string | null
           locked_until?: string | null
           new_status?: Database["public"]["Enums"]["shipment_status"]
-          next_retry_at?: string
+          next_retry_at?: string | null
           origin_city?: string | null
           origin_country?: string | null
           parcel_description?: string | null
@@ -505,6 +504,7 @@ export type Database = {
           shipment_created_at?: string
           shipment_id?: string | null
           source_event_id?: string | null
+          test_mode?: boolean
           tracking_number?: string
           updated_at?: string
         }
@@ -541,21 +541,38 @@ export type Database = {
       }
       shipment_notification_webhook_events: {
         Row: {
+          applied_at: string | null
           event_type: string
+          notification_id: string | null
           provider_event_id: string
+          provider_message_id: string | null
           received_at: string
         }
         Insert: {
+          applied_at?: string | null
           event_type: string
+          notification_id?: string | null
           provider_event_id: string
+          provider_message_id?: string | null
           received_at?: string
         }
         Update: {
+          applied_at?: string | null
           event_type?: string
+          notification_id?: string | null
           provider_event_id?: string
+          provider_message_id?: string | null
           received_at?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "shipment_notification_webhook_events_notification_id_fkey"
+            columns: ["notification_id"]
+            isOneToOne: false
+            referencedRelation: "shipment_notification_outbox"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       shipments: {
         Row: {
@@ -902,6 +919,7 @@ export type Database = {
         Args: { p_batch_size?: number; p_lease_seconds?: number }
         Returns: {
           attempt_count: number
+          attempts_in_cycle: number
           created_at: string
           delivery_status: string
           destination_city: string | null
@@ -916,7 +934,7 @@ export type Database = {
           location: string | null
           locked_until: string | null
           new_status: Database["public"]["Enums"]["shipment_status"]
-          next_retry_at: string
+          next_retry_at: string | null
           origin_city: string | null
           origin_country: string | null
           parcel_description: string | null
@@ -930,6 +948,7 @@ export type Database = {
           shipment_created_at: string
           shipment_id: string | null
           source_event_id: string | null
+          test_mode: boolean
           tracking_number: string
           updated_at: string
         }[]
@@ -951,6 +970,7 @@ export type Database = {
       record_resend_notification_webhook: {
         Args: {
           p_event_type: string
+          p_notification_id: string
           p_provider_event_id: string
           p_provider_message_id: string
         }
