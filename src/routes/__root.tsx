@@ -113,6 +113,19 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
               logo: "https://remitship.online/favicon.png",
               description:
                 "RemitShip is an international shipping and logistics company providing air freight, sea cargo, express courier, customs clearance and shipment tracking.",
+              email: "support@remitship.online",
+              address: {
+                "@type": "PostalAddress",
+                streetAddress: "800 East Grace Street",
+                addressLocality: "Richmond",
+                addressRegion: "VA",
+                postalCode: "23219",
+                addressCountry: "US",
+              },
+              areaServed: {
+                "@type": "Country",
+                name: "United States",
+              },
               knowsAbout: [
                 "International shipping",
                 "Air freight",

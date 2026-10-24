@@ -196,13 +196,13 @@ supabase secrets set \
   RESEND_API_KEY=re_... \
   RESEND_FROM_EMAIL="RemitShip <notifications@your-verified-domain.example>" \
   PUBLIC_SITE_URL=https://remitship.online \
-  SUPPORT_EMAIL=support@your-verified-domain.example \
+  SUPPORT_EMAIL=support@remitship.online \
   SUPPORT_PHONE="+1 202 555 0100" \
   EMAIL_TEST_MODE=true \
   EMAIL_TEST_RECIPIENT=your-test-inbox@example.com
 ```
 
-`SUPPORT_EMAIL` must be supplied because the current Contact page has no published support address. `SUPPORT_PHONE` is optional. The existing logo is served from `/remitship-logo.png`; override it with `EMAIL_LOGO_URL` only if you have another public HTTPS logo URL. Set `NOTIFICATION_MAX_ATTEMPTS` to an integer from 1 to 10 (default 6).
+`SUPPORT_EMAIL` must be supplied. The public support address is `support@remitship.online`; `SUPPORT_PHONE` is optional. The existing logo is served from `/remitship-logo.png`; override it with `EMAIL_LOGO_URL` only if you have another public HTTPS logo URL. Set `NOTIFICATION_MAX_ATTEMPTS` to an integer from 1 to 10 (default 6).
 
 The migration's scheduled database request reads `supabase_url` and `service_role_key` from Supabase Vault. Before the first scheduled run, add both secrets in the Supabase SQL editor/dashboard (names are case-sensitive), replacing the placeholders with project values. Do not commit either value:
 
