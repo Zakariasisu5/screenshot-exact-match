@@ -195,7 +195,7 @@ Set Edge Function secrets before processing the queue. `SUPABASE_URL` and `SUPAB
 supabase secrets set \
   RESEND_API_KEY=re_... \
   RESEND_FROM_EMAIL="RemitShip <notifications@your-verified-domain.example>" \
-  PUBLIC_SITE_URL=https://remitship.vercel.app \
+  PUBLIC_SITE_URL=https://remitship.online \
   SUPPORT_EMAIL=support@your-verified-domain.example \
   SUPPORT_PHONE="+1 202 555 0100" \
   EMAIL_TEST_MODE=true \
@@ -265,4 +265,3 @@ For questions or issues, contact the RemitShip development team.
 ---
 
 **Built with Lovable and modern web technologies**
-

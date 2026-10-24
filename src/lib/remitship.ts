@@ -11,7 +11,7 @@ export const publicShipmentFields = ['tracking_number','status','service_type','
 type PublicField = typeof publicShipmentFields[number]
 export function publicShipment<T extends Partial<Record<PublicField, string | number | boolean | null>>>(row: T & Record<string, unknown>) { return Object.fromEntries(publicShipmentFields.map(k => [k,row[k] ?? null])) as {[K in PublicField]: NonNullable<T[K]> | null} }
 export const dateLabel = (value: string | null | undefined) => value ? new Intl.DateTimeFormat(undefined,{dateStyle:'medium',timeStyle:'short',timeZoneName:undefined}).format(new Date(value)) : 'Not available'
-export const SITE_URL = 'https://remitship.vercel.app'
+export const SITE_URL = 'https://remitship.online'
 
 export const pageHead = (
   title: string,

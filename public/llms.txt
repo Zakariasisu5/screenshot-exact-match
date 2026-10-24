@@ -6,13 +6,13 @@ RemitShip ships documents, parcels and cargo across borders. Customers track shi
 
 ## Pages
 
-- [Home](https://remitship.vercel.app/): Overview of RemitShip international shipping.
-- [Track a shipment](https://remitship.vercel.app/track): Look up a shipment by its RemitShip tracking number.
-- [Shipping services](https://remitship.vercel.app/services): Air freight, sea freight, express courier and international shipping.
-- [About RemitShip](https://remitship.vercel.app/about): Who RemitShip is and how it handles shipments.
-- [Contact](https://remitship.vercel.app/contact): Reach RemitShip about shipping, tracking and service availability.
+- [Home](https://remitship.online/): Overview of RemitShip international shipping.
+- [Track a shipment](https://remitship.online/track): Look up a shipment by its RemitShip tracking number.
+- [Shipping services](https://remitship.online/services): Air freight, sea freight, express courier and international shipping.
+- [About RemitShip](https://remitship.online/about): Who RemitShip is and how it handles shipments.
+- [Contact](https://remitship.online/contact): Reach RemitShip about shipping, tracking and service availability.
 
 ## Optional
 
-- [Privacy policy](https://remitship.vercel.app/privacy): How RemitShip protects shipment and customer information.
-- [Terms and conditions](https://remitship.vercel.app/terms): RemitShip shipment and service terms.
+- [Privacy policy](https://remitship.online/privacy): How RemitShip protects shipment and customer information.
+- [Terms and conditions](https://remitship.online/terms): RemitShip shipment and service terms.

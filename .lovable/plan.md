@@ -8,11 +8,11 @@ This is a setup guide for you to follow. No app changes are needed.
 
 ## 2. Get a sender address
 - **To test right away:** use `RemitShip <onboarding@resend.dev>`. This address only sends to the email you signed up to Resend with.
-- **To email real customers:** you need your own domain, such as remitship.com. A `.vercel.app` address can't be used.
+- **To email real customers:** you need your own domain, such as remitship.online. A `.vercel.app` address can't be used.
   1. In Resend, go to **Domains**, then **Add Domain**.
   2. Copy the DNS records Resend shows you (MX, SPF and DKIM) into your domain provider's DNS settings.
   3. Click **Verify** and wait until it says Verified.
-  4. Your sender is then something like `RemitShip <notifications@remitship.com>`.
+  4. Your sender is then something like `RemitShip <notifications@remitship.online>`.
 
 ## 3. Add the settings to Supabase
 In the Supabase Dashboard, open project **remitship**, go to **Edge Functions**, then **Secrets**, then **Add new secret**, and add each setting below:
@@ -21,7 +21,7 @@ In the Supabase Dashboard, open project **remitship**, go to **Edge Functions**,
 |---|---|
 | RESEND_API_KEY | your `re_...` key |
 | RESEND_FROM_EMAIL | `RemitShip <onboarding@resend.dev>` (or your own domain address) |
-| PUBLIC_SITE_URL | `https://remitship.vercel.app` |
+| PUBLIC_SITE_URL | `https://remitship.online` |
 | SUPPORT_EMAIL | your support inbox |
 | EMAIL_TEST_MODE | `true` while testing |
 | EMAIL_TEST_RECIPIENT | your own Resend signup email |
